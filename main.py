@@ -90,8 +90,6 @@ def product_actions(message, product, markup=None, change=None):
     else:
         text="Что вас интерсует?"
         
-    print(f"\n\n\n\actions={actions}\n\n\n")
-    
     for action in actions:
         markup.add(types.KeyboardButton(action))
 
