@@ -128,7 +128,7 @@ def step_3(message, product):
 
                 
 def operator(message, product=None):
-    #markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True).add(types.KeyboardButton("В главное меню"))
+    ##markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True).add(types.KeyboardButton("В главное меню"))
     markup2= types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("Бот поддержки", url='https://t.me/test_live_support_bot'))          
 
     if product:
@@ -137,9 +137,7 @@ def operator(message, product=None):
     
     else:
         bot.send_message(message.chat.id, text=f"Напишите ваш вопрос в этот чат",reply_markup=markup2)
-    
+        
     start(message)
-
-
-    
+ 
 bot.infinity_polling(none_stop=True)
