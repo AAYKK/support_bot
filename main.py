@@ -4,7 +4,13 @@ from functools import partial
 
 bot=tb.TeleBot(token='7104012758:AAHPvjgf9XwTzRDg3lHuLO2qq0pbdfLC_28')
 
-products=["Крипто-ПРО","1С","ЭЦП","Чат-бот"]
+
+products={
+    'Крипто-ПРО':{'info':'Krypto', 'price':'113'},
+    '1С':{'info':'1sochka', 'price':'123'},
+    'ЭЦП':{'info':'ecp', 'price':'124'},
+    'Чат-бот':{'info':'chatbot', 'price':'125'}
+    }
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -45,7 +51,7 @@ def product_change(message,markup=None):
     if markup==None:
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
   
-    for product in products:
+    for product in list(products.keys()):
         markup.add(types.KeyboardButton(product))
         
     markup.add(types.KeyboardButton("Другое"))
@@ -68,7 +74,7 @@ def step_2(message):
     elif message.text=='Другое':
           operator(message)
     
-    elif message.text not in products:
+    elif message.text not in list(products.keys()):
         bot.send_message(message.chat.id, text="У нас нет такого продукта.\nЕсли темы вашего вопроса нет в списке, то нажмите кнопку <Другое>")   
         product_change(message,markup)
         
@@ -82,16 +88,14 @@ def product_actions(message, product, markup=None, change=None):
     if markup==None:
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
         
-    actions=["Информация о продукте", "Прайс","Консультация"]
+    actions=["Информация о продукте", "Прайс", "Консультация"]
     
     if change:
         actions.remove(change)
         text="Что вас ещё интерсует?"
     else:
         text="Что вас интерсует?"
-        
-    print(f"\n\n\n\actions={actions}\n\n\n")
-    
+
     for action in actions:
         markup.add(types.KeyboardButton(action))
 
@@ -118,10 +122,10 @@ def step_3(message, product):
         
     else: 
         if message.text=='Информация о продукте':
-            bot.send_message(message.chat.id, text=f"Здесь будет информация про {product}")
+            bot.send_message(message.chat.id, text=products[product]['info'])
 
         elif message.text=='Прайс':
-            bot.send_message(message.chat.id, text=f"Здесь будет информация про прайс для {product}")
+            bot.send_message(message.chat.id, text=products[product]['price'])
 
         product_actions(message, product, markup, message.text)
 
@@ -129,14 +133,14 @@ def step_3(message, product):
                 
 def operator(message, product=None):
     ##markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True).add(types.KeyboardButton("В главное меню"))
-    markup2= types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("Бот поддержки", url='https://t.me/test_live_support_bot'))          
+    markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("Бот поддержки", url='https://t.me/test_live_support_bot'))          
 
     if product:
         
-        bot.send_message(message.chat.id, text=f"Напишите ваш вопрос касательно {product} в этот чат",reply_markup=markup2)
+        bot.send_message(message.chat.id, text=f"Напишите ваш вопрос касательно {product} в этот чат",reply_markup=markup)
     
     else:
-        bot.send_message(message.chat.id, text=f"Напишите ваш вопрос в этот чат",reply_markup=markup2)
+        bot.send_message(message.chat.id, text=f"Напишите ваш вопрос в этот чат",reply_markup=markup)
         
     start(message)
  
