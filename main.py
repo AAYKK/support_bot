@@ -133,7 +133,7 @@ def step_3(message, product):
                 
 def operator(message, product=None):
     ##markup1 = types.ReplyKeyboardMarkup(resize_keyboard=True).add(types.KeyboardButton("В главное меню"))
-    markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("Бот поддержки", url='https://t.me/test_live_support_bot'))          
+    markup = types.InlineKeyboardMarkup().add(types.InlineKeyboardButton("Бот поддержки", url='https://t.me/ITINS_sup_bot'))          
 
     if product:
         
