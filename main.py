@@ -2,7 +2,7 @@ import telebot as tb
 from telebot import types
 from functools import partial
 
-bot=tb.TeleBot(token='7104012758:AAHPvjgf9XwTzRDg3lHuLO2qq0pbdfLC_28')
+bot=tb.TeleBot(token='7137813594:AAFUugOYNtDW1qzj5Ax4nz5r58YuuuMMXbk')
 
 
 products={
